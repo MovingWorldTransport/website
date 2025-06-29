@@ -205,6 +205,28 @@ header img {
     }
 }
 
+/* Star rating styling */
+.star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.star {
+    font-size: 1.2rem;
+    color: #d1d5db; /* Tailwind gray-300 for empty stars */
+}
+
+.star.filled {
+    color: #60a5fa; /* Tailwind blue-400 for filled stars */
+}
+
+@media (max-width: 767px) {
+    .star {
+        font-size: 1rem; /* Smaller stars for mobile */
+    }
+}
+
 /* Main content container */
 main {
     padding-left: 1rem; /* Reduced padding for mobile */
