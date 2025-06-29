@@ -146,6 +146,12 @@ main {
     padding-right: 1rem;
 }
 
+/* About page image styling */
+.about-image {
+    max-height: 250px; /* Matches the placeholder image height */
+    object-fit: cover;
+}
+
 /* Responsive adjustments */
 @media (min-width: 768px) {
     .md\:grid-cols-2 {
@@ -251,5 +257,15 @@ main {
 
     footer nav a {
         font-size: 0.9rem; /* Smaller footer links */
+    }
+
+    /* About page responsive adjustments */
+    .about-image {
+        max-width: 100%;
+        margin: 0 auto 20px auto; /* Center image and add spacing when stacked */
+    }
+
+    .flex-col > p {
+        margin-bottom: 1rem; /* Restore margin for stacked layout */
     }
 }
