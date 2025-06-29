@@ -297,6 +297,41 @@
             contactForm.reset();
         }
 
+        // Function to toggle the mobile menu
+        function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const burgerMenu = document.getElementById('burger-menu');
+            const overlay = document.getElementById('menu-overlay');
+
+            if (navMenu.classList.contains('show')) {
+                // Close menu
+                navMenu.classList.remove('show');
+                burgerMenu.classList.remove('open');
+                if (overlay) {
+                    document.body.removeChild(overlay);
+                }
+            } else {
+                // Open menu
+                navMenu.classList.add('show');
+                burgerMenu.classList.add('open');
+
+                // Create and append overlay
+                const newOverlay = document.createElement('div');
+                newOverlay.id = 'menu-overlay';
+                newOverlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 998;
+                `;
+                newOverlay.onclick = toggleMenu;
+                document.body.appendChild(newOverlay);
+            }
+        }
+
         // Function to show a specific page
         function showPage(pageId) {
             // Hide all page sections
@@ -328,12 +363,16 @@
                 pageHistory.push(pageId);
             }
 
-            // Close mobile menu if open
+            // Close mobile menu and overlay
             const navMenu = document.getElementById('nav-menu');
             const burgerMenu = document.getElementById('burger-menu');
+            const overlay = document.getElementById('menu-overlay');
             if (navMenu.classList.contains('show')) {
                 navMenu.classList.remove('show');
                 burgerMenu.classList.remove('open');
+                if (overlay) {
+                    document.body.removeChild(overlay);
+                }
             }
         }
 
@@ -358,11 +397,7 @@
 
             // Burger menu toggle
             const burgerMenu = document.getElementById('burger-menu');
-            const navMenu = document.getElementById('nav-menu');
-            burgerMenu.addEventListener('click', () => {
-                navMenu.classList.toggle('show');
-                burgerMenu.classList.toggle('open');
-            });
+            burgerMenu.addEventListener('click', toggleMenu);
         });
 
         // Custom alert/message box function
