@@ -349,126 +349,146 @@
         </div>
     </footer>
 <script>
-	// Reset the contact form on page load
+// Array to track internal page history
+let pageHistory = [];
+
+// Reset the contact form on page load
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.reset();
 }
-    // JavaScript for dynamic page switching
-    function showPage(pageId) {
-        // Hide all page sections
-        document.querySelectorAll('.page-section').forEach(section => {
-            section.classList.add('hidden');
-            section.classList.remove('active');
-        });
 
-        // Remove active class from all nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active-nav-link');
-        });
+// Function to show a specific page
+function showPage(pageId) {
+    // Hide all page sections
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.add('hidden');
+        section.classList.remove('active');
+    });
 
-        // Show the requested page section
-        const targetPage = document.getElementById(pageId + '-page');
-        if (targetPage) {
-            targetPage.classList.remove('hidden');
-            targetPage.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
+    // Remove active class from all nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active-nav-link');
+    });
 
-            // Add active class to the corresponding nav link
-            const activeNavLink = document.querySelector(`a[href="#${pageId}-page"]`);
-            if (activeNavLink) {
-                activeNavLink.classList.add('active-nav-link');
-            }
+    // Show the requested page section
+    const targetPage = document.getElementById(pageId + '-page');
+    if (targetPage) {
+        targetPage.classList.remove('hidden');
+        targetPage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
 
-            // Update URL hash without causing a page reload
-            history.pushState({ pageId: pageId }, '', '#' + pageId + '-page');
+        // Add active class to the corresponding nav link
+        const activeNavLink = document.querySelector(`a[href="#${pageId}-page"]`);
+        if (activeNavLink) {
+            activeNavLink.classList.add('active-nav-link');
         }
-    }
 
-    // Handle browser back/forward navigation
-    window.addEventListener('popstate', (event) => {
-        const pageId = event.state?.pageId || 'home'; // Default to 'home' if no state
+        // Update URL hash and add to history
+        history.pushState({ pageId: pageId }, '', '#' + pageId + '-page');
+        // Add to internal history tracking
+        pageHistory.push(pageId);
+    }
+}
+
+// Handle browser back/forward navigation
+window.addEventListener('popstate', (event) => {
+    const pageId = event.state?.pageId;
+
+    if (pageId) {
+        // If there's a valid pageId in the state, show the corresponding internal page
         showPage(pageId);
-    });
-
-    // Initialize the page based on URL hash or default to home on load
-    document.addEventListener('DOMContentLoaded', () => {
-        const hash = window.location.hash;
-        const initialPage = hash ? hash.substring(1).replace('-page', '') : 'home';
-        showPage(initialPage);
-    });
-
-    // Custom alert/message box function
-    function alertMessage(message) {
-        // Create a simple modal/message box dynamically
-        const messageBox = document.createElement('div');
-        messageBox.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 1000;
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-            font-family: 'Roboto', sans-serif;
-            color: #333;
-            border: 1px solid #ddd;
-        `;
-
-        const messageText = document.createElement('p');
-        messageText.textContent = message;
-        messageText.style.cssText = `
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            line-height: 1.6;
-        `;
-
-        const closeButton = document.createElement('button');
-        closeButton.textContent = 'OK';
-        closeButton.style.cssText = `
-            background-color: #60a5fa; /* Tailwind blue-400 */
-            color: white;
-            padding: 10px 25px;
-            border: none;
-            border-radius: 9999px; /* Full rounded */
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-        `;
-        closeButton.onmouseover = () => closeButton.style.backgroundColor = '#3b82f6'; /* Tailwind blue-500 */
-        closeButton.onmouseout = () => closeButton.style.backgroundColor = '#60a5fa';
-
-        closeButton.onclick = () => {
-            document.body.removeChild(messageBox);
-            document.body.removeChild(overlay);
-        };
-
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 999;
-        `;
-        overlay.onclick = () => { // Allow clicking overlay to close
-            document.body.removeChild(messageBox);
-            document.body.removeChild(overlay);
-        };
-
-        messageBox.appendChild(messageText);
-        messageBox.appendChild(closeButton);
-        document.body.appendChild(overlay);
-        document.body.appendChild(messageBox);
+        // Remove the last entry from internal history since we're going back
+        pageHistory.pop();
+    } else if (pageHistory.length > 0) {
+        // If there's no state but we have internal history, go to the last internal page
+        const lastPageId = pageHistory[pageHistory.length - 1];
+        showPage(lastPageId);
+    } else {
+        // No internal history left; allow default browser navigation to external page
+        // Optionally, you can redirect to the home page or do nothing
+        showPage('home'); // Fallback to home if desired
+        // Alternatively, do nothing to allow browser to handle external navigation
     }
+});
+
+// Initialize the page based on URL hash or default to home on load
+document.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash;
+    const initialPage = hash ? hash.substring(1).replace('-page', '') : 'home';
+    showPage(initialPage);
+});
+
+// Custom alert/message box function
+function alertMessage(message) {
+    const messageBox = document.createElement('div');
+    messageBox.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 1000;
+        text-align: center;
+        max-width: 90%;
+        width: 400px;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        border: 1px solid #ddd;
+    `;
+
+    const messageText = document.createElement('p');
+    messageText.textContent = message;
+    messageText.style.cssText = `
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        line-height: 1.6;
+    `;
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.cssText = `
+        background-color: #60a5fa;
+        color: white;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 9999px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        transition: background-color 0.2s ease;
+    `;
+    closeButton.onmouseover = () => closeButton.style.backgroundColor = '#3b82f6';
+    closeButton.onmouseout = () => closeButton.style.backgroundColor = '#60a5fa';
+
+    closeButton.onclick = () => {
+        document.body.removeChild(messageBox);
+        document.body.removeChild(overlay);
+    };
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 999;
+    `;
+    overlay.onclick = () => {
+        document.body.removeChild(messageBox);
+        document.body.removeChild(overlay);
+    };
+
+    messageBox.appendChild(messageText);
+    messageBox.appendChild(closeButton);
+    document.body.appendChild(overlay);
+    document.body.appendChild(messageBox);
+}
 </script>
 </body>
 </html>
