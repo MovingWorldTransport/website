@@ -162,7 +162,7 @@
                     <div class="image-gallery">
                         <img src="https://placehold.co/400x250/ADD8E2/000000?text=Mariana+and+Ciprian" alt="A professional portrait of Mariana and Ciprian, the founders of MW Transport." class="rounded-xl shadow-md">
 						<img src="https://placehold.co/400x250/ADD8E2/000000?text=Mariana+and+Ciprian" alt="A professional portrait of Mariana and Ciprian, the founders of MW Transport." class="rounded-xl shadow-md">
-					<img src="https://placehold.co/400x250/ADD8E2/000000?text=Mariana+and+Ciprian" alt="A professional portrait of Mariana and Ciprian, the founders of MW Transport." class="rounded-xl shadow-md">
+						<img src="https://placehold.co/400x250/ADD8E2/000000?text=Mariana+and+Ciprian" alt="A professional portrait of Mariana and Ciprian, the founders of MW Transport." class="rounded-xl shadow-md">
                     </div>
                 </div>
             </div>
@@ -293,4 +293,177 @@
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">How far in advance should I book?</h3>
-                        <p class="text-gray-700 text-justify">We recommend booking as far in advance as possible, especially for larger moves or peak seasons,.clear
+                        <p class="text-gray-700 text-justify">We recommend booking as far in advance as possible, especially for larger moves or peak seasons, to ensure availability. However, we also accommodate last-minute requests when our schedule permits.</p>
+                    </div>
+                </div>
+                <div class="mt-8 text-center text-gray-600">
+                    <p>Have a question not listed here? Don't hesitate to reach out to us!</p>
+                    <button class="btn btn-secondary mt-4" onclick="showPage('contact')">Ask a Question</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials-page" class="page-section hidden">
+            <div class="card max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">What Our Clients Say</h2>
+                <div class="space-y-8">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                        <p class="text-gray-700 italic mb-4 text-justify">"MW Transport made our move so easy and stress-free. Mariana and Ciprian were incredibly professional and friendly. Highly recommend!"</p>
+                        <p class="font-semibold text-gray-800">- Sarah L., London</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                        <p class="text-gray-700 italic mb-4 text-justify">"Excellent service for transporting a large antique cabinet. Handled with great care and delivered on time. Will definitely use again."</p>
+                        <p class="font-semibold text-gray-800">- David P., Manchester</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                        <p class="text-gray-700 italic mb-4 text-justify">"From the initial quote to the final delivery, MW Transport was exceptional. Professional, punctual, and truly cared for our belongings. A fantastic family business!"</p>
+                        <p class="font-semibold text-gray-800">- Emily R., Bristol</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                        <p class="text-gray-700 italic mb-4 text-justify">"We've used MW Transport twice now for small item deliveries, and each time they've been incredibly efficient and friendly. They're our go-to for anything we need moved."</p>
+                        <p class="font-semibold text-gray-800">- John T., Leeds</p>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <p class="text-lg text-gray-700">We'd love to hear about your experience! If you've used our services, please consider leaving a review.</p>
+                    <button class="btn btn-secondary mt-4" onclick="showPage('contact')">Leave a Review</button>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto text-center px-4 lg:px-8">
+            <p class="text-lg mb-4">MW Transport - Your Choice for Stress-Free Removals</p>
+            <nav class="flex justify-center space-x-6 mb-4" aria-label="Footer Navigation">
+                <a href="#home-page" class="text-gray-300 hover:text-blue-400 transition-colors duration-200" onclick="event.preventDefault(); showPage('home')">Home</a>
+                <a href="#about-page" class="text-gray-300 hover:text-blue-400 transition-colors duration-200" onclick="event.preventDefault(); showPage('about')">About Us</a>
+                <a href="#services-page" class="text-gray-300 hover:text-blue-400 transition-colors duration-200" onclick="event.preventDefault(); showPage('services')">Services</a>
+                <a href="#contact-page" class="text-gray-300 hover:text-blue-400 transition-colors duration-200" onclick="event.preventDefault(); showPage('contact')">Contact</a>
+                <a href="#faq-page" class="text-gray-300 hover:text-blue-400 transition-colors duration-200" onclick="event.preventDefault(); showPage('faq')">FAQ</a>
+                <a href="#testimonials-page" class="text-gray-300 hover:text-blue-400 transition-colors duration-200" onclick="event.preventDefault(); showPage('testimonials')">Testimonials</a>
+            </nav>
+            <p class="text-sm text-gray-400">&copy; 2025 MW Transport. All rights reserved.</p>
+        </div>
+    </footer>
+<script>
+    // JavaScript for dynamic page switching
+    function showPage(pageId) {
+        // Hide all page sections
+        document.querySelectorAll('.page-section').forEach(section => {
+            section.classList.add('hidden');
+            section.classList.remove('active');
+        });
+
+        // Remove active class from all nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active-nav-link');
+        });
+
+        // Show the requested page section
+        const targetPage = document.getElementById(pageId + '-page');
+        if (targetPage) {
+            targetPage.classList.remove('hidden');
+            targetPage.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
+
+            // Add active class to the corresponding nav link
+            const activeNavLink = document.querySelector(`a[href="#${pageId}-page"]`);
+            if (activeNavLink) {
+                activeNavLink.classList.add('active-nav-link');
+            }
+
+            // Update URL hash without causing a page reload
+            history.pushState({ pageId: pageId }, '', '#' + pageId + '-page');
+        }
+    }
+
+    // Handle browser back/forward navigation
+    window.addEventListener('popstate', (event) => {
+        const pageId = event.state?.pageId || 'home'; // Default to 'home' if no state
+        showPage(pageId);
+    });
+
+    // Initialize the page based on URL hash or default to home on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const hash = window.location.hash;
+        const initialPage = hash ? hash.substring(1).replace('-page', '') : 'home';
+        showPage(initialPage);
+    });
+
+    // Custom alert/message box function
+    function alertMessage(message) {
+        // Create a simple modal/message box dynamically
+        const messageBox = document.createElement('div');
+        messageBox.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            border: 1px solid #ddd;
+        `;
+
+        const messageText = document.createElement('p');
+        messageText.textContent = message;
+        messageText.style.cssText = `
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        `;
+
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'OK';
+        closeButton.style.cssText = `
+            background-color: #60a5fa; /* Tailwind blue-400 */
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 9999px; /* Full rounded */
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        `;
+        closeButton.onmouseover = () => closeButton.style.backgroundColor = '#3b82f6'; /* Tailwind blue-500 */
+        closeButton.onmouseout = () => closeButton.style.backgroundColor = '#60a5fa';
+
+        closeButton.onclick = () => {
+            document.body.removeChild(messageBox);
+            document.body.removeChild(overlay);
+        };
+
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+        `;
+        overlay.onclick = () => { // Allow clicking overlay to close
+            document.body.removeChild(messageBox);
+            document.body.removeChild(overlay);
+        };
+
+        messageBox.appendChild(messageText);
+        messageBox.appendChild(closeButton);
+        document.body.appendChild(overlay);
+        document.body.appendChild(messageBox);
+    }
+</script>
+</body>
+</html>
