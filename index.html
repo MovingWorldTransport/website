@@ -395,21 +395,16 @@ function showPage(pageId) {
 window.addEventListener('popstate', (event) => {
     const pageId = event.state?.pageId;
 
-    if (pageId) {
-        // If there's a valid pageId in the state, show the corresponding internal page
+    if (pageId && pageHistory.length > 0) {
+        // Show internal page and update history
         showPage(pageId);
-        // Remove the last entry from internal history since we're going back
         pageHistory.pop();
     } else if (pageHistory.length > 0) {
-        // If there's no state but we have internal history, go to the last internal page
+        // Show the last internal page
         const lastPageId = pageHistory[pageHistory.length - 1];
         showPage(lastPageId);
-    } else {
-        // No internal history left; allow default browser navigation to external page
-        // Optionally, you can redirect to the home page or do nothing
-        showPage('home'); // Fallback to home if desired
-        // Alternatively, do nothing to allow browser to handle external navigation
     }
+    // If no internal history, do nothing and let the browser navigate to external page
 });
 
 // Initialize the page based on URL hash or default to home on load
