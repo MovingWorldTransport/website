@@ -349,6 +349,11 @@
         </div>
     </footer>
 <script>
+	// Reset the contact form on page load
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.reset();
+}
     // JavaScript for dynamic page switching
     function showPage(pageId) {
         // Hide all page sections
