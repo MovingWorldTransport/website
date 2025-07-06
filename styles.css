@@ -6,6 +6,8 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f9fafb; /* Tailwind bg-gray-50 */
     color: #1f2937; /* Tailwind text-gray-800 */
+    font-size: 1.125rem; /* Increased from default 16px to 18px for better readability */
+    line-height: 1.6; /* Adjusted for larger font size */
 }
 
 /* Custom card styling */
@@ -26,8 +28,8 @@ body {
     padding: 0.75rem 1.5rem; /* Tailwind px-6 py-3 */
     border-radius: 9999px; /* Tailwind rounded-full */
     font-weight: 600; /* Tailwind font-semibold */
-    font-size: 1rem; /* Ensure readable text */
-    line-height: 1.5; /* Improve readability */
+    font-size: 1.125rem; /* Increased from 1rem to 1.125rem (18px) */
+    line-height: 1.5; /* Maintained for readability */
     min-height: 44px; /* Minimum touch target size for mobile */
     border: none; /* Ensure no border on buttons */
     transition: color 300ms ease, background-color 300ms ease; /* Tailwind transition-colors duration-300 */
@@ -62,7 +64,7 @@ body {
     padding: 0.5rem 0.75rem; /* Reduced padding for mobile */
     color: #4b5563; /* Tailwind text-gray-700 */
     font-weight: 500; /* Tailwind font-medium */
-    font-size: 0.9rem; /* Slightly smaller for mobile */
+    font-size: 1rem; /* Increased from 0.9rem to 1rem (16px) for better readability */
     border-radius: 0.5rem; /* Tailwind rounded-lg */
     transition: color 200ms ease; /* Tailwind transition-colors duration-200 */
     display: inline-block; /* Ensure proper touch target */
@@ -87,7 +89,7 @@ body {
     border: 1px solid #d1d5db; /* Tailwind border border-gray-300 */
     border-radius: 0.5rem; /* Tailwind rounded-lg */
     outline: none; /* Tailwind focus:outline-none */
-    font-size: 1rem; /* Ensure readable text */
+    font-size: 1.125rem; /* Increased from 1rem to 1.125rem (18px) */
     min-height: 44px; /* Minimum touch target size */
 }
 
@@ -200,7 +202,7 @@ header img {
         width: 100%;
         text-align: center;
         padding: 0.75rem;
-        font-size: 1rem;
+        font-size: 1.125rem; /* Increased from 1rem to 1.125rem (18px) for mobile menu */
         margin-bottom: 0.5rem;
     }
 }
@@ -213,8 +215,7 @@ header img {
 }
 
 .star {
-    font-size: 1.2rem;
-    color: #d1d5db; /* Tailwind gray-300 for empty stars */
+    font-size: 1.4rem; /* Increased from 1.2rem to 1.4rem for better visibility */
 }
 
 .star.filled {
@@ -223,7 +224,7 @@ header img {
 
 @media (max-width: 767px) {
     .star {
-        font-size: 1rem; /* Smaller stars for mobile */
+        font-size: 1.2rem; /* Increased from 1rem to 1.2rem for mobile */
     }
 }
 
@@ -265,7 +266,7 @@ main {
 
     .nav-link {
         padding: 0.5rem 1rem; /* Original padding for larger screens */
-        font-size: 1rem; /* Original font size */
+        font-size: 1.125rem; /* Increased from 1rem to 1.125rem (18px) */
     }
 
     header img {
@@ -298,12 +299,12 @@ main {
 
     /* Home page text */
     .page-section#home-page .text-lg {
-        font-size: 0.9rem; /* Smaller text for mobile */
-        line-height: 1.5; /* Improved readability */
+        font-size: 1rem; /* Increased from 0.9rem to 1rem (16px) for mobile */
+        line-height: 1.5; /* Maintained for readability */
     }
 
     .page-section#home-page h2 {
-        font-size: 1.5rem; /* Smaller heading for mobile */
+        font-size: 1.75rem; /* Increased from 1.5rem to 1.75rem for mobile */
     }
 
     /* Contact page form */
@@ -325,6 +326,10 @@ main {
         padding: 1rem; /* Reduced padding for service cards */
     }
 
+    .page-section#services-page h3 {
+        font-size: 1.5rem; /* Increased from 1.25rem (Tailwind text-2xl) to 1.5rem */
+    }
+
     /* Footer */
     footer nav {
         flex-direction: column;
@@ -332,7 +337,7 @@ main {
     }
 
     footer nav a {
-        font-size: 0.9rem; /* Smaller footer links */
+        font-size: 1rem; /* Increased from 0.9rem to 1rem (16px) */
     }
 
     /* About page responsive adjustments */
@@ -343,5 +348,11 @@ main {
 
     .flex-col > p {
         margin-bottom: 1rem; /* Restore margin for stacked layout */
+    }
+
+    /* FAQ and Testimonials */
+    .page-section#faq-page h3,
+    .page-section#testimonials-page .font-semibold {
+        font-size: 1.25rem; /* Increased from 1rem (Tailwind text-xl) to 1.25rem */
     }
 }
